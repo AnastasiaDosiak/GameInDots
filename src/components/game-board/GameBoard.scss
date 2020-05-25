@@ -1,0 +1,37 @@
+.game-board {
+    width: 50%;
+
+    &__field {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__header-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 60px;
+    }
+
+    &__size-easy {
+        width: 210px;
+        height: 210px;
+    }
+
+    &__size-normal {
+        width: 420px;
+        height: 420px;
+    }
+
+    &__size-hard {
+        width: 630px;
+        height: 630px;
+    }
+
+    &__winner {
+        font-size: 28px;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 0;
+    }
+}
