@@ -144,7 +144,8 @@ class GameBoard extends PureComponent {
             <div className="game-board">
                 <div className="game-board__header-container">
                     <Mode isPlaying={isPlaying} onEndGame={this.endGame} onPickGameMode={this.pickGameMode}/>
-                    {field > 0 && <Input onChangeUserNameState={this.changeUserNameState} userName={userName}/>}
+                    {field > 0 &&
+                    <Input isPlaying={isPlaying} onChangeUserNameState={this.changeUserNameState} userName={userName}/>}
                     <Button isPlaying={isPlaying} allowedToPlay={allowedToPlay} onRestartGame={this.restartGame}
                             onStartGame={this.startGame}/>
                 </div>

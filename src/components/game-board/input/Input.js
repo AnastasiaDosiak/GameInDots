@@ -3,9 +3,11 @@ import "./Input.scss";
 
 class Input extends PureComponent {
     handleNameChange = (event) => {
-        const userName = event.target.value;
-
-        userName.trim().length > 0 && this.props.onChangeUserNameState(userName)
+        if (this.props.isPlaying) {
+            return;
+        }
+        let userName = event.target.value;
+        this.props.onChangeUserNameState(userName.trim())
     };
 
     render() {
