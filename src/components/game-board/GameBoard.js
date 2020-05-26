@@ -68,9 +68,9 @@ class GameBoard extends PureComponent {
 
     pressSquare = (index) => {
         const {pressedIndexes, gameMap} = this.state;
-        const {highlighted, missed} = gameMap[index];
+        const {highlighted, missed, pressed} = gameMap[index];
 
-        if (highlighted && !missed) {
+        if (highlighted && !missed && !pressed) {
             const newMap = updateGameMap(gameMap, index, "pressed", true);
 
             this.setState({gameMap: newMap, pressedIndexes: [...pressedIndexes, index]})
