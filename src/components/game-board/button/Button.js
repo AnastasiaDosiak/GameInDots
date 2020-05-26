@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import "./Button.scss";
 
-class Button extends Component {
+class Button extends PureComponent {
     render() {
         const {isPlaying, allowedToPlay, onRestartGame, onStartGame} = this.props;
 

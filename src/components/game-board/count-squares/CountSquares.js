@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import "./CountSquares.scss";
 
-class CountSquares extends Component {
+class CountSquares extends PureComponent {
     render() {
         const {pressedIndexes, missedIndexes} = this.props;
 

@@ -15,3 +15,9 @@ export const sendWinnerInfo = (winner, dateOfWin) => {
         res => res.json()
     );
 };
+
+export const getWinners = () => {
+    return fetch('https://starnavi-frontend-test-task.herokuapp.com/winners').then(
+        res => res.json()
+    )
+};

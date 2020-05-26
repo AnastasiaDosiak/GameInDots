@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import "./LeaderBoard.scss";
+import {getWinners} from "../../api/Api";
 
-class LeaderBoard extends Component {
+class LeaderBoard extends PureComponent {
     componentDidMount() {
         this.getWinnerList();
     }
 
     getWinnerList = () => {
-        fetch('https://starnavi-frontend-test-task.herokuapp.com/winners').then(
-            res => res.json()
-        ).then(
+        getWinners().then(
             winnerList => this.props.onSetWinners(winnerList)
         )
     };

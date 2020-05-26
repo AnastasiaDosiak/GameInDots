@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import "./Mode.scss";
 
-class Mode extends Component {
+class Mode extends PureComponent {
     handleModeChange = (event) => {
         this.props.isPlaying && this.props.onEndGame();
         this.props.onPickGameMode(event)

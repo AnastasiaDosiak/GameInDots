@@ -29,10 +29,6 @@ class GameBoard extends PureComponent {
         fetchGameSettings().then(gameSettings => this.setState({gameSettings}))
     }
 
-    changeUserNameState = (userName) => {
-        this.setState({userName})
-    };
-
     getCountToSquare = () => {
         const count = this.state.pickedMode.field;
         return count * count
@@ -50,11 +46,6 @@ class GameBoard extends PureComponent {
             fieldSize: "game-board__size-" + gameDifficulty,
             isPlaying: false
         }, this.createGameMap);
-    };
-
-    startGame = () => {
-        this.interval = setInterval(this.highlightRandomSquare, this.state.pickedMode.delay);
-        this.setState({isPlaying: true})
     };
 
     highlightRandomSquare = () => {
@@ -75,29 +66,6 @@ class GameBoard extends PureComponent {
         this.setState({gameMap: newMap, highlightedIndexes: [...highlightedIndexes, randomIndex]})
     };
 
-    sendWinnerInfo = async () => {
-        const {winner, dateOfWin} = this.state;
-        const winners = await sendWinnerInfo(winner, dateOfWin);
-
-        this.props.onSetWinners(winners);
-    };
-
-    checkForWinner = () => {
-        const {userName, pressedIndexes, missedIndexes, isPlaying} = this.state;
-
-        if (isPlaying) {
-            const halfPoints = Math.ceil(this.getCountToSquare() / 2) - 1;
-            const winner = pressedIndexes.length >= halfPoints ? userName : missedIndexes.length >= halfPoints && "Computer";
-
-            if (winner) {
-                this.setState({winner, dateOfWin: moment().format('LLL')}, async () => {
-                    this.clearInterval();
-                    await this.sendWinnerInfo();
-                });
-            }
-            return !!winner;
-        }
-    };
     pressSquare = (index) => {
         const {pressedIndexes, gameMap} = this.state;
         const {highlighted, missed} = gameMap[index];
@@ -124,6 +92,11 @@ class GameBoard extends PureComponent {
         clearInterval(this.interval);
     };
 
+    startGame = () => {
+        this.interval = setInterval(this.highlightRandomSquare, this.state.pickedMode.delay);
+        this.setState({isPlaying: true})
+    };
+
     endGame = () => {
         this.clearInterval();
         this.setState({...initialState})
@@ -133,6 +106,34 @@ class GameBoard extends PureComponent {
         this.endGame();
         this.createGameMap();
         this.startGame();
+    };
+
+    checkForWinner = () => {
+        const {userName, pressedIndexes, missedIndexes, isPlaying} = this.state;
+
+        if (isPlaying) {
+            const halfPoints = Math.ceil(this.getCountToSquare() / 2) - 1;
+            const winner = pressedIndexes.length > halfPoints ? userName : missedIndexes.length >= halfPoints && "Computer";
+
+            if (winner) {
+                this.setState({winner, dateOfWin: moment().format('LLL')}, async () => {
+                    this.clearInterval();
+                    await this.sendWinnerInfo();
+                });
+            }
+            return !!winner;
+        }
+    };
+
+    sendWinnerInfo = async () => {
+        const {winner, dateOfWin} = this.state;
+        const winners = await sendWinnerInfo(winner, dateOfWin);
+
+        this.props.onSetWinners(winners);
+    };
+
+    changeUserNameState = (userName) => {
+        this.setState({userName})
     };
 
     render() {

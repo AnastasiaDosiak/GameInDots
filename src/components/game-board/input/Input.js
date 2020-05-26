@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import "./Input.scss";
 
-class Input extends Component {
+class Input extends PureComponent {
     handleNameChange = (event) => {
         const userName = event.target.value;
+
         userName.trim().length > 0 && this.props.onChangeUserNameState(userName)
     };
 
